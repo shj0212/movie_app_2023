@@ -1,0 +1,59 @@
+import React from "react";
+
+class App extends React.Component{//state는 class형 컴포넌트에서 가능
+  constructor(props){ //생명주기 함수는 아니나, 클래스형 컴포넌트가 생성될 때 호출 
+    super(props);
+    console.log('hello'); //constructor 내의 로그가 render보다 먼저 불려짐 
+    // -> react.component에 포함된 함수가 아닌 js함수
+  }
+  componentDidMount(){
+    console.log('component rendered');  //hello -> render -> componentDidMount -> 마운트로 
+  }
+
+  componentDidUpdate(){ //화면이 다시 render되고 -> update 실행(setState실행 -> render실행 -> update 실행)
+    console.log('I just updated');
+  }
+  componentWillUnmount(){ //이벤트 리스너를 제거할 때 많이 사용
+    console.log('Goodbye, cruel world');
+  }
+
+  state={ //동적 데이터를 다룰 때 사용
+    count: 0,
+  };
+
+  // add = () => {
+  //   // console.log('add');
+  //   // this.state.count=1;  //변경 안됨
+  //   this.setState({count:this.state.count+1});
+  // }
+  // minus = ()=>{
+  //   // console.log('minus');
+  //   // this.state.count=-1;//변경 안됨
+  //   this.setState({count:this.state.count-1});
+  // }
+
+  add=()=>{
+    this.setState(  (current)=>({
+      count:current.count+1,
+    }));
+  };
+  minus=()=>{
+    this.setState(  (current)=>({
+      count:current.count-1,
+    }));
+  };
+
+  render(){// render 함수가 jsx를 반환
+    console.log('render');  //construct 함수와 호출 순서 비교
+    // return <h1>I'm a Class component</h1>
+    return( 
+      <div>
+      <h1>The number is :{this.state.count}</h1>
+      <button onClick={this.add}>Add</button>
+      <button onClick={this.minus}>Minus</button>
+      </div>
+    );
+  }
+}
+
+export default App;

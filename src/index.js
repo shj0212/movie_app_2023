@@ -1,17 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
     <App />
-  </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// ReactDOM.render(<App />, document.getElementById('root')); 
+// ReactDOM.render(<App /><Potato />, document.getElementById('root')); 
+// 리액트는 최종으로 단 한개의 컴포넌트를 그려야 함 Potato 컴포넌트를 -> App 컴포넌트에 넣어야 함

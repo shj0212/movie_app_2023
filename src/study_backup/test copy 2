@@ -1,0 +1,59 @@
+import Potato from "./Potato";  //Potato 임포트 
+
+function Movie(){ //js파일 없이 별도의 함수로 추가 가능
+  return <h1>I love Potato2</h1>;
+}
+
+// function Food(prop){ //js파일 없이 별도의 함수로 추가 가능 ->{fav}로 해도 됨
+//   // console.log(prop);
+//   return <h1>I love {prop.fav}</h1>;  // {fav}로 넘어오면 {prop.fav}로 안써도 됨
+//                                       // 별도의 변수로 넣어줘도 됨 {fav} = prop
+// }           
+
+function Food({name,picture}){
+  return (<div>
+    <h1>I like {name}</h1>
+    <img src ={picture} />
+    </div>);
+}
+
+const foodLike=[
+  {
+    name:'kimchi',
+    image:'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.ffd.co.kr%2Fshop-constant%2F%3Fidx%3D41&psig=AOvVaw2of12G_weCSvCK3-AhU46E&ust=1687581949887000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCJiF0OfK2P8CFQAAAAAdAAAAABAE',
+  },
+  {
+    name:'samgiopasal',
+    image:'https://i.namu.wiki/i/SdI6mHzKiWg-yJEqBpWhaACTth0ZSU_qSjhHCnQp5OxqwVl-PRIzql6bkmp1tm0YaHxjDoTbt-nBtiSE4nhqbQ.webp',
+  },
+  {
+    name:'ramen',
+    image:'https://i.namu.wiki/i/8s7OaNPsZ8KC1e8RQ6QZEwgfFUoIVVOIm0jA72-UO6Imw0OgI1aEK_DulMeXWbg4tstts3IQFMJS0jmYKD9rzQ.webp',
+  },
+  {
+    name:'chuckumi',
+    image:'https://static.wtable.co.kr/image/production/service/recipe/707/d403b168-c865-4b5e-9afb-58c48e5feaec.jpg',
+  },
+  {
+    name:'bread',
+    image:'https://tastesbetterfromscratch.com/wp-content/uploads/2020/03/Bread-Recipe-5-2.jpg',
+  },
+]; //food 데이터를 배열로 받기 
+
+function renderFood(dish){
+  return <Food name={dish.name} picture={dish.image} />;
+}
+
+function App() {
+  // return <div className="App" />
+  return (
+    <div>
+      <h1>Hello!!!!</h1>
+      {foodLike.map(dish => (
+        <Food name={dish.name} picture={dish.image} />
+        ))}
+    </div>
+  );
+}
+
+export default App;

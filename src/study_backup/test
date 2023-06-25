@@ -1,0 +1,33 @@
+import Potato from "./Potato";  //Potato 임포트 
+
+function Movie(){ //js파일 없이 별도의 함수로 추가 가능
+  return <h1>I love Potato2</h1>;
+}
+
+function Food(prop){ //js파일 없이 별도의 함수로 추가 가능 ->{fav}로 해도 됨
+  // console.log(prop);
+  return <h1>I love {prop.fav}</h1>;  // {fav}로 넘어오면 {prop.fav}로 안써도 됨
+                                      // 별도의 변수로 넣어줘도 됨 {fav} = prop
+}                                     
+
+function App() {
+  // return <div className="App" />
+  return (
+    <div>
+      <h1>Hello!!!!</h1>
+      <Potato />
+      {/* <Movie /> */}
+      {/* <Movie /> */}
+      {/* <Movie /> */}
+      {/* <Movie /> */}
+      {/* <Movie /> //복사해서 넣으면 똑같은 내용이 반복 출력됨 */}
+      {/* { <Food fav="kimchi" /*something={true} papapa={['hello',1,2,3,4,,true]}*//> } */}
+      <Food fav="kimchi"/>
+      <Food fav="ramen"/>
+      <Food fav="samgiopasal"/>
+      <Food fav="chuckumi"/>
+      </div>
+  )
+}
+
+export default App;

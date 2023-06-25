@@ -1,0 +1,56 @@
+import React from "react";
+import axios from "axios";  // json 처리를 위해 axios 추가 -> 원래는 fetch를 쓴다고 함
+import Movie from "./Movie";
+import './App.css';
+
+class App extends React.Component{//state는 class형 컴포넌트에서 가능
+  
+  //영화 앱 데이터 로딩 상태 보여주기
+  state = {
+    isLoading:true,    
+    movies:[],  //여기에 객체 원소 저장 -> state를 미리 계획해서 생성하는 습관은 좋은 습관
+  }
+  getMovies = async () =>{  //자바스크립트에게 이 함수는 시간이 필요하고(이 함수는 비동기다)
+    // const movies = await axios.get("https://yts.mx/api/v2/list_movies.json"); //실행을 기다려 달라 (실행을 기다렸다 완료하면 진행해라)
+    // console.log(movies);  //movies에 들어간 객체 확인
+    // console.log(movies.data.data.movies); //좀 더 원하는 정보 확인
+    const{  //ES6의 구조 분해 할당
+      data:{
+        data:{movies},
+      },
+    } = await axios.get('https://yts.mx/api/v2/list_movies.json?sort_by=rating'); //평점순으로 sorting 함
+    // console.log(movies);
+    // this.setState({movies:movies}); // 데이터를 변수에 저장, 앞에 movies는 state고 뒤에 movies는 axios.get()값을 담을 변수 => 같으므로 축약 가능
+    this.setState({movies, isLoading: false});  // 다 완료되면 값을 false로 바꿔줌
+  };
+  componentDidMount(){  //6초 후에 we are ready로 바뀜
+    //영화 데이터 로딩 
+    // setTimeout(()=>{  //첫 번째 인자
+    //   this.setState({isLoading:false})
+    // }, 6000)  //두 번째 인자 
+    // axios.get('https://yts.mx/api/v2/list_movies.json');// 네트워크를 사용해서 느림 -> 해당 함수가 시간이 걸림을 알림 -> 함수를 getMovie로 뺀다
+    this.getMovies();
+  }
+  render(){ // render가 실행되면 호출되는 생명주기 함수 -> componentDidMount() -> setTimeout()적용
+    const {isLoading, movies} = this.state;
+    return <section class="container">{isLoading? (
+      <div class="loader">
+        <span class="loader__text">Loading...</span>
+      </div>
+    ): (<div class="movies">
+      {movies.map((movie)=>{
+      console.log(movie);
+      return (<Movie 
+        key={movie.id}  // 컴포넌트 여러 개 출력 시 유일한 값을 이용하여 key props를 추가해야 함
+        id={movie.id}
+        year={movie.year}
+        title={movie.title}
+        summary={movie.summary}
+        poster={movie.medium_cover_image}
+      />); //movie 컴포넌트 반환 -> 여기서 Movie 컴포넌트 출력
+    })}
+    </div>)}</section>; //isLoading이 false인 경우 데이터 출력
+  }
+}
+
+export default App;
